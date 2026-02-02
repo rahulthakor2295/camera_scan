@@ -4,8 +4,6 @@ Ultra-fast barcode and QR code scanner with batch processing capabilities.
 
 ## Screenshots
 
-## Screenshots
-
 <p align="center">
   <img src="assets/screenshots/splash_screen.jpeg" width="200" height="500" alt="Splash Screen"/>
   &nbsp;&nbsp;&nbsp;
