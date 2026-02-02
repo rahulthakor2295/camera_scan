@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'splash_screen.dart';
+import 'app.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -19,35 +19,5 @@ Future<void> main() async {
     cameras = [];
   }
 
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FlashScan',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.purple,
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-        fontFamily: 'Roboto',
-      ),
-      home: cameras.isEmpty
-          ? const Scaffold(
-              body: Center(
-                child: Text(
-                  'No cameras available',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            )
-          : SplashScreen(cameras: cameras),
-    );
-  }
+  runApp(MyApp(cameras: cameras));
 }

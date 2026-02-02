@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
-import '../models/scanned_image.dart';
+import '../../../../models/scanned_image.dart';
 
 class ResultsScreen extends StatefulWidget {
   final List<String> imagePaths;
@@ -16,7 +16,7 @@ class _ResultsScreenState extends State<ResultsScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   int? _expandedIndex;
-  List<ScannedImage> _scannedImages = [];
+  final List<ScannedImage> _scannedImages = [];
   bool _isScanning = true;
   final BarcodeScanner _barcodeScanner = BarcodeScanner(
     formats: [BarcodeFormat.all],
@@ -73,7 +73,9 @@ class _ResultsScreenState extends State<ResultsScreen>
             scanType = ScanType.barcode;
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        // Ignore errors during scanning
+      }
 
       final scannedImage = ScannedImage(
         imagePath: imagePath,
@@ -186,9 +188,11 @@ class _ResultsScreenState extends State<ResultsScreen>
                     const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
@@ -303,8 +307,11 @@ class _ResultsScreenState extends State<ResultsScreen>
                                       ),
                                     ),
                                   ),
-                                  child:
-                                      _buildImageCard(image, index, isExpanded),
+                                  child: _buildImageCard(
+                                    image,
+                                    index,
+                                    isExpanded,
+                                  ),
                                 ),
                               );
                             },
@@ -334,12 +341,10 @@ class _ResultsScreenState extends State<ResultsScreen>
         margin: const EdgeInsets.symmetric(horizontal: 4),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.15),
+          color: Colors.white.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.3),
-            width: 1,
-          ),
+          border:
+              Border.all(color: Colors.white.withValues(alpha: 0.3), width: 1),
         ),
         child: Column(
           children: [
@@ -356,7 +361,7 @@ class _ResultsScreenState extends State<ResultsScreen>
             Text(
               label,
               style: TextStyle(
-                color: Colors.white.withOpacity(0.8),
+                color: Colors.white.withValues(alpha: 0.8),
                 fontSize: 12,
               ),
             ),
@@ -382,7 +387,7 @@ class _ResultsScreenState extends State<ResultsScreen>
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.3),
+              color: color.withValues(alpha: 0.3),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -394,8 +399,9 @@ class _ResultsScreenState extends State<ResultsScreen>
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(16)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
                   child: Image.file(
                     File(image.imagePath),
                     width: double.infinity,
@@ -407,14 +413,16 @@ class _ResultsScreenState extends State<ResultsScreen>
                   top: 12,
                   right: 12,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: color,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           blurRadius: 8,
                         ),
                       ],
@@ -447,7 +455,7 @@ class _ResultsScreenState extends State<ResultsScreen>
                     width: 32,
                     height: 32,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha: 0.6),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -470,8 +478,11 @@ class _ResultsScreenState extends State<ResultsScreen>
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.access_time,
-                          size: 16, color: Colors.grey.shade600),
+                      Icon(
+                        Icons.access_time,
+                        size: 16,
+                        color: Colors.grey.shade600,
+                      ),
                       const SizedBox(width: 4),
                       Text(
                         _formatTime(image.timestamp),
@@ -493,10 +504,10 @@ class _ResultsScreenState extends State<ResultsScreen>
                       width: double.infinity,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: color.withOpacity(0.1),
+                        color: color.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: color.withOpacity(0.3),
+                          color: color.withValues(alpha: 0.3),
                           width: 1,
                         ),
                       ),
@@ -559,8 +570,10 @@ class _ResultsScreenState extends State<ResultsScreen>
                               final index = entry.key;
                               final value = entry.value;
                               return Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 26, bottom: 6),
+                                padding: const EdgeInsets.only(
+                                  left: 26,
+                                  bottom: 6,
+                                ),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -585,7 +598,7 @@ class _ResultsScreenState extends State<ResultsScreen>
                                   ],
                                 ),
                               );
-                            }).toList(),
+                            }),
                           ],
                         ],
                       ),
@@ -597,20 +610,20 @@ class _ResultsScreenState extends State<ResultsScreen>
                       width: double.infinity,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.1),
+                        color: Colors.grey.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.info_outline,
-                              color: Colors.grey, size: 20),
+                          Icon(
+                            Icons.info_outline,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
                           const SizedBox(width: 8),
                           const Text(
                             'No QR code or barcode detected',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                            ),
+                            style: TextStyle(color: Colors.grey, fontSize: 14),
                           ),
                         ],
                       ),

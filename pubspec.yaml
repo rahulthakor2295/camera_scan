@@ -31,29 +31,18 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  
-  # Camera and scanning packages
-  camera: ^0.10.5+9
-  mobile_scanner: ^5.2.3
-  google_mlkit_barcode_scanning: ^0.12.0
-  path_provider: ^2.1.4
-  path: ^1.9.0
-  permission_handler: ^11.3.1
+  camera: ^0.11.3
+  google_mlkit_barcode_scanning: ^0.14.2
+  path_provider: ^2.1.5
+  path: ^1.9.1
+  permission_handler: ^12.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
