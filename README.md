@@ -2,6 +2,17 @@
 
 Ultra-fast barcode and QR code scanner with batch processing capabilities.
 
+## Screenshots
+
+<p align="center">
+  <img src="assets/screenshots/splash_screen.jpeg" width="200" alt="Splash Screen"/>
+  <img src="assets/screenshots/home_screen.jpeg" width="200" alt="Home Screen"/>
+  <img src="assets/screenshots/camera_start.jpeg" width="200" alt="Camera Screen"/>
+  <img src="assets/screenshots/camera_capturing.jpeg" width="200" alt="Capturing"/>
+  <img src="assets/screenshots/scan_results.jpeg" width="200" alt="Scan Results"/>
+</p>
+
+
 ## Features
 
 - **Fast Batch Scanning**: Capture multiple images rapidly and scan them all at once

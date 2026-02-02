@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'home_screen.dart';
+import 'splash_screen.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             )
-          : HomeScreen(cameras: cameras),
+          : SplashScreen(cameras: cameras),
     );
   }
 }
