@@ -171,25 +171,24 @@ class _CameraScreenState extends State<CameraScreen>
     }
 
     try {
+      // Immediate visual feedback
       setState(() => _showShutterEffect = true);
       _shutterAnimationController.forward(from: 0);
 
+      // Fast capture
       final XFile image = await _cameraController!.takePicture();
 
-      Future.delayed(const Duration(milliseconds: 250), () {
-        if (mounted) {
-          setState(() => _showShutterEffect = false);
-          _shutterAnimationController.reset();
-        }
-      });
-
-      final tempPath = image.path;
-
+      // Clear shutter effect quickly
       if (mounted) {
-        setState(() => _capturedImagePaths.add(tempPath));
+        setState(() => _showShutterEffect = false);
+        _shutterAnimationController.reset();
+
+        // Add to list immediately for UI update
+        _capturedImagePaths.add(image.path);
       }
 
-      _saveImageInBackground(tempPath);
+      // Process in background
+      _saveImageInBackground(image.path);
     } catch (e) {
       _shutterAnimationController.reset();
       setState(() => _showShutterEffect = false);
