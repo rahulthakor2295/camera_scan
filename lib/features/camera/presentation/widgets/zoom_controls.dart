@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../controller/scan_controller.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../controller/scan_cubit.dart';
+import '../../controller/scan_state.dart';
 
 class ZoomControls extends StatelessWidget {
-  final ScanController controller;
+  final ScanState state;
+  final ScanCubit cubit;
 
-  const ZoomControls({super.key, required this.controller});
+  const ZoomControls({
+    super.key,
+    required this.state,
+    required this.cubit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +23,8 @@ class ZoomControls extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: controller.availableZoomLevels.map((zoom) {
-          final isSelected = controller.currentZoomLevel == zoom;
+        children: state.availableZoomLevels.map((zoom) {
+          final isSelected = state.currentZoomLevel == zoom;
           String label = zoom == 0.5
               ? '0.5x'
               : zoom == 1.0
@@ -26,7 +32,7 @@ class ZoomControls extends StatelessWidget {
                   : '${zoom.toInt()}x';
 
           return GestureDetector(
-            onTap: () => controller.switchZoomLevel(zoom),
+            onTap: () => cubit.switchZoomLevel(zoom),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(

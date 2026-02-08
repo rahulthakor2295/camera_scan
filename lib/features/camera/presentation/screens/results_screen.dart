@@ -53,9 +53,9 @@ class _ResultsScreenState extends State<ResultsScreen>
 
         if (barcodes.isNotEmpty) {
           for (var barcode in barcodes) {
-            if (barcode.displayValue != null &&
-                barcode.displayValue!.isNotEmpty) {
-              values.add(barcode.displayValue!);
+            final displayValue = barcode.displayValue;
+            if (displayValue != null && displayValue.isNotEmpty) {
+              values.add(displayValue);
             }
 
             if (barcode.format == BarcodeFormat.qrCode) {

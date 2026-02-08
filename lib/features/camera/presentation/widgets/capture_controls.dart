@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../controller/scan_controller.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../controller/scan_cubit.dart';
+import '../../controller/scan_state.dart';
 
 class CaptureControls extends StatefulWidget {
-  final ScanController controller;
+  final ScanState state;
+  final ScanCubit cubit;
   final VoidCallback onStop;
 
   const CaptureControls({
     super.key,
-    required this.controller,
+    required this.state,
+    required this.cubit,
     required this.onStop,
   });
 
@@ -32,7 +35,7 @@ class _CaptureControlsState extends State<CaptureControls>
   @override
   void didUpdateWidget(CaptureControls oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.controller.showShutterEffect) {
+    if (widget.state.showShutterEffect) {
       _shutterController.forward(from: 0).then((_) {
         Future.delayed(const Duration(milliseconds: 100), () {
           if (mounted) _shutterController.reset();
@@ -52,13 +55,13 @@ class _CaptureControlsState extends State<CaptureControls>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.controller.isCapturing)
+        if (widget.state.isCapturing)
           GestureDetector(
-            onTap: widget.controller.captureImage,
+            onTap: widget.cubit.captureImage,
             child: Stack(
               alignment: Alignment.center,
               children: [
-                if (widget.controller.showShutterEffect)
+                if (widget.state.showShutterEffect)
                   SizedBox(
                     width: 80,
                     height: 80,
@@ -93,9 +96,9 @@ class _CaptureControlsState extends State<CaptureControls>
           children: [
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: widget.controller.isCapturing
+                onPressed: widget.state.isCapturing
                     ? null
-                    : widget.controller.startCapturing,
+                    : widget.cubit.startCapturing,
                 icon: const Icon(Icons.play_arrow),
                 label: const Text('START'),
                 style: ElevatedButton.styleFrom(
@@ -107,7 +110,7 @@ class _CaptureControlsState extends State<CaptureControls>
             const SizedBox(width: 16),
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: widget.controller.isCapturing ? widget.onStop : null,
+                onPressed: widget.state.isCapturing ? widget.onStop : null,
                 icon: const Icon(Icons.stop),
                 label: const Text('STOP'),
                 style: ElevatedButton.styleFrom(
